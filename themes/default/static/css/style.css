@@ -1,0 +1,35 @@
+body {
+    background-color: #373737;
+    color: #fefefe;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    margin: 0 auto;
+    width: 53em;
+    min-height:53em;
+    position: relative;
+}
+
+a { color: #55757B; }
+
+h1 {
+    font-size: 2.5em;
+    padding: 0;
+    color: #aaa;
+    margin-bottom: 0.3em;
+}
+
+#home {
+    color: #aaa;
+}
+
+#navigation-left {
+    float: left;
+}
+
+#navigation-right {
+    float: right;
+}
+
+footer {
+    font-size: 0.8em;
+}
