@@ -1,2 +1,4 @@
 output/
-
+env/
+syntax: glob
+*.pid
