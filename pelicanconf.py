@@ -21,15 +21,17 @@ SOCIAL = ()
 
 DEFAULT_PAGINATION = 10
 
-ARTICLE_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
-ARTICLE_LANG_URL = '{date:%Y}/{date:%m}/{date:%d}/{slug}-{lang}.html'
+ARTICLE_URL = '/{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
+ARTICLE_LANG_URL = '/{date:%Y}/{date:%m}/{date:%d}/{slug}-{lang}.html'
 PAGE_URL = '{date:%Y}/{date:%m}/{date:%d}/pages/{slug}.html'
 PAGE_LANG_URL = '{date:%Y}/{date:%m}/{date:%d}/pages/{slug}-{lang}.html'
-ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
-ARTICLE_LANG_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/{slug}-{lang}.html'
-PAGE_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/pages/{slug}.html'
-PAGE_LANG_SAVE_AS = '{date:%Y}/{date:%m}/{date:%d}/pages/{slug}-{lang}.html'
+ARTICLE_SAVE_AS = '/{date:%Y}/{date:%m}/{date:%d}/{slug}.html'
+ARTICLE_LANG_SAVE_AS = '/{date:%Y}/{date:%m}/{date:%d}/{slug}-{lang}.html'
+PAGE_SAVE_AS = '/{date:%Y}/{date:%m}/{date:%d}/pages/{slug}.html'
+PAGE_LANG_SAVE_AS = '/{date:%Y}/{date:%m}/{date:%d}/pages/{slug}-{lang}.html'
 
 THEME="themes/default"
 
 SITEURL="http://fixme.se"
+
+RELATIVE_URLS = False
