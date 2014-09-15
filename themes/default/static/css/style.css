@@ -36,6 +36,7 @@ pre {
     background-color: #555;
     padding: 0.5em;
     font-size: 0.8em;
+    overflow: auto;
 }
 
 p {
@@ -76,3 +77,4 @@ li {
 strong {
     font-weight: bold;
 }
+
