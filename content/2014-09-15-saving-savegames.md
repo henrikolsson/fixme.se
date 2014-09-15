@@ -83,14 +83,14 @@ I started by searching for calls to getuid and looking at what function they wer
     :::objdump
     000000000050cf10 <dorecover>:
       .....
-      50cf4f:       e8 fc ef ff ff          callq  50bf50 <mread>
-      50cf54:       44 8b 64 24 14          mov    0x14(%rsp),%r12d
-      50cf59:       e8 82 14 0f 00          callq  5fe3e0 <__getuid>
-      50cf5e:       41 39 c4                cmp    %eax,%r12d
-      50cf61:       74 19                   je     50cf7c <dorecover+0x6c>
-      50cf63:       31 c0                   xor    %eax,%eax
-      50cf65:       bf 06 48 6a 00          mov    $0x6a4806,%edi
-      50cf6a:       e8 21 f3 fd ff          callq  4ec290 <pline>
+      50cf4f:  e8 fc ef ff ff          callq  50bf50 <mread>
+      50cf54:  44 8b 64 24 14          mov    0x14(%rsp),%r12d
+      50cf59:  e8 82 14 0f 00          callq  5fe3e0 <__getuid>
+      50cf5e:  41 39 c4                cmp    %eax,%r12d
+      50cf61:  74 19                   je     50cf7c <dorecover+0x6c>
+      50cf63:  31 c0                   xor    %eax,%eax
+      50cf65:  bf 06 48 6a 00          mov    $0x6a4806,%edi
+      50cf6a:  e8 21 f3 fd ff          callq  4ec290 <pline>
       .....
 
 But getuid isn't called in dorecover. The nearby calls (mread, pline) actually looks like the code from restgamestate. Lets see what's being put in the edi register by the mov instruction before the call to pline by looking at the string data in the binary:
@@ -106,40 +106,40 @@ So it is the code we're looking for, it must have been inlined. Let's analyze wh
 
     000000000050cf10 <dorecover>:
       .....
-      50cf4f:       e8 fc ef ff ff          callq  50bf50 <mread>             # read piece of the file
-      50cf54:       44 8b 64 24 14          mov    0x14(%rsp),%r12d           # move into %r12d (i think)
-      50cf59:       e8 82 14 0f 00          callq  5fe3e0 <__getuid>          # call getuid
-      50cf5e:       41 39 c4                cmp    %eax,%r12d                 # compare result to %r12d
-      50cf61:       74 19                   je     50cf7c <dorecover+0x6c>    # if the same, jump to 50cf7c -|
-      50cf63:       31 c0                   xor    %eax,%eax                  # set %eax to 0                |
-      50cf65:       bf 06 48 6a 00          mov    $0x6a4806,%edi             # 6a4806: "Saved game was not yours."
-      50cf6a:       e8 21 f3 fd ff          callq  4ec290 <pline>             # print it                     |
-      50cf6f:       80 3d 94 4c 42 00 00    cmpb   $0x0,0x424c94(%rip)        # 931c0a <flags+0xa> check if field at flags + 0xA is equal to 0 (most likely WIZARD flag)
-      50cf76:       0f 84 66 03 00 00       je     50d2e2 <dorecover+0x3d2>   # if so, jump to 50d2e2 -|     |
-      50cf7c:       ba d0 00 00 00          mov    $0xd0,%edx                 #                        |   <-| Here!
-      50cf81:       be 00 1c 93 00          mov    $0x931c00,%esi             #                        |
-      50cf86:       89 df                   mov    %ebx,%edi                  #                        |
-      50cf88:       e8 c3 ef ff ff          callq  50bf50 <mread>             #                        |
-                                                                              #                        |
-      .....                                                                   #                        |
-                                                                              #                        |  
-      50d2e2:       be 01 00 00 00          mov    $0x1,%esi                  #                      <-| Here! 
-      50d2e7:       8b 3d 47 dd 41 00       mov    0x41dd47(%rip),%edi        # 92b034 <WIN_MESSAGE>
-      50d2ed:       ff 15 ed 0e 45 00       callq  *0x450eed(%rip)        # 95e1e0 <windowprocs+0x60>
-      50d2f3:       ba 04 00 00 00          mov    $0x4,%edx
-      50d2f8:       31 f6                   xor    %esi,%esi
-      50d2fa:       bf ff ff ff ff          mov    $0xffffffff,%edi
-      50d2ff:       e8 3c 40 00 00          callq  511340 <savelev>
-      50d304:       89 df                   mov    %ebx,%edi
-      50d306:       e8 35 3b 10 00          callq  610e40 <__libc_close>
-      50d30b:       e8 e0 cd f5 ff          callq  46a0f0 <delete_savefile>
-      50d310:       c6 05 69 01 43 00 00    movb   $0x0,0x430169(%rip)        # 93d480 <restoring>
-      50d317:       48 83 c4 20             add    $0x20,%rsp
-      50d31b:       31 c0                   xor    %eax,%eax
-      50d31d:       5b                      pop    %rbx
-      50d31e:       5d                      pop    %rbp
-      50d31f:       41 5c                   pop    %r12
-      50d321:       c3                      retq
+      50cf4f:  e8 fc ef ff ff          callq  50bf50 <mread>             # read piece of the file
+      50cf54:  44 8b 64 24 14          mov    0x14(%rsp),%r12d           # move into %r12d (i think)
+      50cf59:  e8 82 14 0f 00          callq  5fe3e0 <__getuid>          # call getuid
+      50cf5e:  41 39 c4                cmp    %eax,%r12d                 # compare result to %r12d
+      50cf61:  74 19                   je     50cf7c <dorecover+0x6c>    # if the same, jump to 50cf7c -|
+      50cf63:  31 c0                   xor    %eax,%eax                  # set %eax to 0                |
+      50cf65:  bf 06 48 6a 00          mov    $0x6a4806,%edi             # 6a4806: "Saved game was not yours."
+      50cf6a:  e8 21 f3 fd ff          callq  4ec290 <pline>             # print it                     |
+      50cf6f:  80 3d 94 4c 42 00 00    cmpb   $0x0,0x424c94(%rip)        # 931c0a <flags+0xa> check if field at flags + 0xA is equal to 0 (most likely WIZARD flag)
+      50cf76:  0f 84 66 03 00 00       je     50d2e2 <dorecover+0x3d2>   # if so, jump to 50d2e2 -|     |
+      50cf7c:  ba d0 00 00 00          mov    $0xd0,%edx                 #                        |   <-| Here!
+      50cf81:  be 00 1c 93 00          mov    $0x931c00,%esi             #                        |
+      50cf86:  89 df                   mov    %ebx,%edi                  #                        |
+      50cf88:  e8 c3 ef ff ff          callq  50bf50 <mread>             #                        |
+                                                                         #                        |
+      .....                                                              #                        |
+                                                                         #                        |  
+      50d2e2:  be 01 00 00 00          mov    $0x1,%esi                  #                      <-| Here! 
+      50d2e7:  8b 3d 47 dd 41 00       mov    0x41dd47(%rip),%edi        # 92b034 <WIN_MESSAGE>
+      50d2ed:  ff 15 ed 0e 45 00       callq  *0x450eed(%rip)            # 95e1e0 <windowprocs+0x60>
+      50d2f3:  ba 04 00 00 00          mov    $0x4,%edx
+      50d2f8:  31 f6                   xor    %esi,%esi
+      50d2fa:  bf ff ff ff ff          mov    $0xffffffff,%edi
+      50d2ff:  e8 3c 40 00 00          callq  511340 <savelev>
+      50d304:  89 df                   mov    %ebx,%edi
+      50d306:  e8 35 3b 10 00          callq  610e40 <__libc_close>
+      50d30b:  e8 e0 cd f5 ff          callq  46a0f0 <delete_savefile>
+      50d310:  c6 05 69 01 43 00 00    movb   $0x0,0x430169(%rip)        # 93d480 <restoring>
+      50d317:  48 83 c4 20             add    $0x20,%rsp
+      50d31b:  31 c0                   xor    %eax,%eax
+      50d31d:  5b                      pop    %rbx
+      50d31e:  5d                      pop    %rbp
+      50d31f:  41 5c                   pop    %r12
+      50d321:  c3                      retq
 
 The patch needed turned out to be very simple, change the jump at 50cf61 to an unconditional one.
 Looking at an [x86 opcode and instructions reference](http://ref.x86asm.net/coder64.html) we can find that the JMP (unconditional jump) opcode of the same type as the JE (opcode 0x74, rel8, jump <next byte number of bytes> relative to position) is 0xEB. Looking through a few unnethack binaries the disassembled output is very similar, following a pattern for 32-bit and another for 64-bit. So I wrote a fuzzy patcher:
