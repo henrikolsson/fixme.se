@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ DEFAULT_LANG }}">
 <head>
-        {% block head %}
         <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
         <meta charset="utf-8" />
         {% if FEED_ALL_ATOM %}
@@ -28,7 +27,10 @@
         {% if TAG_FEED_RSS %}
         <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag) }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
         {% endif %}
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/fonts.css" />
   <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/pygment.css" />
   <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -43,7 +45,6 @@
 
 </script> 
         
-        {% endblock head %}
 </head>
 
 <body id="index" class="home">

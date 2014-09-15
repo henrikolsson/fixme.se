@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'junctionregularRegular';
+    src: url('../fonts/junction-webfont.eot');
+    src: url('../fonts/junction-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/junction-webfont.woff') format('woff'),
+         url('../fonts/junction-webfont.ttf') format('truetype'),
+         url('../fonts/junction-webfont.svg#junctionregularRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JosefinSlabRegular';
+    src: url('../fonts/JosefinSlab-Regular-webfont.eot');
+    src: url('../fonts/JosefinSlab-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/JosefinSlab-Regular-webfont.woff') format('woff'),
+         url('../fonts/JosefinSlab-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/JosefinSlab-Regular-webfont.svg#JosefinSlabRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
